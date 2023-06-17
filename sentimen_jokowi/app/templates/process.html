@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}
+    Process text
+{% endblock title %}
+{% block content %}
+<a href="{{url_for('controller.process_text')}} " class="btn btn-primary pb-2">Proses text</a>
+{% if  csv %}
+<div class="card shadow">
+  <div class="card-body">
+   <h1  class="pb-3" >Hasil scrapping twitter</h1>
+    <div class="d-flex m-2">
+      <a href="{{url_for('controller.download',model='tweet',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+      <a href="{{url_for('controller.download',model='tweet',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+    </div>
+    {{csv|safe}}
+  </div>
+</div>
+{% else %}
+  no csv
+{% endif %}
+{% if  process %}
+    <div style="overflow-x: auto;" class="pt-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h1 class="pb-3">Hasil process twitter</h1>
+          <div class="d-flex m-2">
+            <a href="{{url_for('controller.download',model='process',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+            <a href="{{url_for('controller.download',model='process',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+          </div>
+          {{process|safe}}
+        </div>
+    </div>
+    </div>
+{% else %}
+  no csv
+{% endif %}
+{% endblock content %}
+

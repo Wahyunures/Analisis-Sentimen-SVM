@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}
+    Index
+{% endblock title %}
+{% block content %}
+<h3>Scraping #jokowi3periode dari twitter</h3>
+<form action="{{url_for('controller.scrap')}} " method="post" class="pb-5">
+  <div class="row g-3 pb-3">
+    <div class="col-auto">
+      <label for="since" class="form-label">Dari</label>
+      <input required type="date" class="form-control" name="since">
+    </div>
+    <div class="col-auto">
+      <label for="until" class="form-label">Hingga</label>
+      <input required type="date" class="form-control" name="until">
+    </div>
+  </div>
+  <div class="d-flex">
+    <button type="submit" class="btn btn-primary m-1 py-2">
+      Scrap twitter
+    </button>
+    <button type="button" class="btn btn-primary  m-1 py-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Hapus semua data
+    </button> 
+  </div>
+</form>
+{% if  csv %}
+    <div class="card shadow">
+      <div class="card-body">
+        <h1 class="pb-3">Hasil scrapping twitter</h1>
+        <div class="d-flex m-2">
+          <a href="{{url_for('controller.download',model='tweet',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+          <a href="{{url_for('controller.download',model='tweet',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+        </div>
+        {{csv|safe}}
+      </div>
+    </div>
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Ingin menghapus data?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+        <a href="{{url_for('controller.clear_data')}} " type="button" class="btn btn-primary">Ya</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+  no csv
+{% endif %}
+{% endblock content %}
+

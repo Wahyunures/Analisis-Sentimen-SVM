@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}
+    Add label
+{% endblock title %}
+{% block content %}
+<a href="{{url_for('controller._labeling')}} " class="btn btn-primary pb-2">Proses text</a>
+{% if  process %}
+  <div style="overflow-x: auto;" class="pt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex m-2">
+          <a href="{{url_for('controller.download',model='process',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+          <a href="{{url_for('controller.download',model='process',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+        </div>        
+        <h1 class="pb-3">Hasil process twitter</h1>
+        {{process|safe}}
+      </div>
+    </div>
+{% else %}
+  no csv
+{% endif %}
+{% if label %}
+  <div style="overflow-x: auto;" class="pt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex m-2">
+          <a href="{{url_for('controller.download',model='label',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+          <a href="{{url_for('controller.download',model='label',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+        </div>        
+        <h1 class="pb-3">Pelabelan dataset</h1>
+        {{label|safe}}
+      </div>
+    </div>
+  </div>
+{% else %}
+  no csv
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %} Modeling {% endblock title %}
+{% block content %}
+    {% if label %}
+        <div style="overflow-x: auto;" class="pt-5">
+            <div style="overflow-x: auto;" class="pt-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex m-2">
+                      <a href="{{url_for('controller.download',model='label',type='csv')}} " class="btn btn-primary mx-1">Download csv</a> 
+                      <a href="{{url_for('controller.download',model='label',type='excel')}} " class="btn btn-primary mx-1">Download excel</a>
+                    </div>        
+                    <h1 class="pb-3">Pelabelan dataset</h1>
+                    {{label|safe}}
+                  </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        no csv
+    {% endif %}   
+    <div class="card mt-5 shadow">
+        <div class="card-body">
+            <h1>jumlah sentimen</h1>
+            <div class="pb-2">
+                <div id='pie' class='chart'”></div>
+                <script type='text/javascript'>
+                var pie = {{pie_json|safe}};
+                Plotly.plot('pie',pie,{});
+                </script>
+            </div>
+            <h2>sentimen</h2>
+            {% for _sentimen in sentimen.keys() %}
+                <p>
+                    {{_sentimen}} : {{sentimen[_sentimen]}}
+                </p>
+            {% endfor %}
+
+            <div class="pb-2">
+                <div id='bar' class='chart'”></div>
+                <script type='text/javascript'>
+                var bar = {{bar_json|safe}};
+                Plotly.plot('bar',bar,{});
+                </script>
+            </div>
+            {% for _bar in bar_arr %}
+                <div class="pb-2">
+                    <div id='bar_{{loop.index}}' class='chart'”></div>
+                    <script type='text/javascript'>
+                    var bar_{{loop.index}} = {{_bar|safe}};
+                    Plotly.plot('bar_{{loop.index}}',bar_{{loop.index}},{});
+                    </script>
+                </div>
+            {% endfor %}
+
+            <div style="overflow-x: auto;" class="pt-5">
+                <h1 class="pb-3">TFIDF dan DFIDF</h1>
+                {{tf_df_idf|safe}}
+            </div>   
+
+            <div class="py-2">    
+                <h1>visualisasi ml</h1>
+                <div class="py-2">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">report</th>
+                            <th scope="col">jumlah</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Actual positive</td>
+                            <td>{{test_positive}}</td>
+                          </tr>
+                          <tr>
+                              <td>Actual negative</td>
+                              <td>{{test_negative}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>         
+                <div id='pie_right_json' class='chart'”></div>
+                <script type='text/javascript'>
+                var pie_right_json = {{pie_right_json|safe}};
+                Plotly.plot('pie_right_json',pie_right_json,{});
+                </script>
+            </div>
+            
+            <div>
+                <h2>Skor akurasi</h2>
+                Skor: {{scores * 100}}%   
+                <h2>Split data</h2>
+                <div id='data' class='chart'”></div>
+                <script type='text/javascript'>
+                var data_json = {{data_json|safe}};
+                Plotly.plot('data',data_json,{});
+                </script>
+                <div class="py-3">
+                    <p>Data latih : {{x_test|length}} </p>
+                    <p>Data test : {{x_testing|length}} </p>
+                    
+                    
+                </div>
+            </div>
+
+           
+
+        </div>
+    </div>
+   
+{% endblock content %}

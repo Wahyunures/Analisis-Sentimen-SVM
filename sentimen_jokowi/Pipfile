@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+sklearn = "*"
+openpyxl = "*"
+flask = "*"
+plotly = "*"
+notebook = "*"
+nltk = "*"
+googletrans = "==4.0.0rc1"
+scikit-learn = "*"
+flask-migrate = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+snscrape = {git = "https://github.com/JustAnotherArchivist/snscrape.git"}
+sastrawi = "*"
+textblob = "*"
+deep-translator = "*"
+
+[scripts]
+db_init = "flask db init"
+db_migrate = "flask db migrate"
+db_upgrade = "flask db upgrade"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

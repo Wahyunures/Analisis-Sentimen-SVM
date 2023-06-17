@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Evaluasi {% endblock title %} 
+{% block content %}
+<div class="mt-5 card">
+    <div class="card-body">        
+        <h1>Confussion matrix</h1>
+        <div id='scatter' class='chart'”></div>
+        <script type='text/javascript'>
+        var graphs = {{plotly_json|safe}};
+        Plotly.plot('scatter',graphs,{});
+        </script>      
+        <p> true positive : {{true_positive}} </p>
+        <p> true negative : {{true_negative}} </p>
+        <p> false positive : {{false_positive}} </p>
+        <p> false negative   : {{false_negative}} </p>
+            
+        <div class="py-3">
+            <p>Accuracy : {{(report["accuracy"] * 100)|round(2)}}% </p>
+            <p>Precission : {{(report["macro avg"]["precision"] * 100)|round(2)}}%</p>
+            <p>Recall :  {{(report["macro avg"]["recall"] * 100)|round(2)}}% </p>
+            <p>F-1 score :  {{(report["macro avg"]["f1-score"] * 100)|round(2)}}% </p>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
